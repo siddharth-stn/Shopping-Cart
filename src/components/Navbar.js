@@ -12,7 +12,9 @@ function Navbar() {
         <li>
           <Link to="/Shop">Shop</Link>
         </li>
-        <div id="imgDiv"><img src={shoppingIcon}/></div>
+        <li>
+          <Link to="/Cart"><img src={shoppingIcon} alt="Cart-Icon"/></Link>
+        </li>
       </nav>
     </div>
   );
