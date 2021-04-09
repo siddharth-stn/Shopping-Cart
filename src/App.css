@@ -1,38 +1,52 @@
-.App {
-  text-align: center;
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  height: 100vh;
+  background-image: url(./components/static/pexels-alex-andrews-3805983.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  border-bottom: 2px white solid;
+  min-height: 50px;
+  list-style: none;
+  justify-content: flex-start;
+}
+
+nav > li {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  margin-top: 12px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+}
+
+nav > li:last-child {
+  margin-left: 100px;
+}
+
+
+nav > li > a {
+  text-decoration: none;
+  font-weight: bold;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+nav > li > a:hover {
+  background-color: white;
+  border-radius: 2px;
+  padding-right: 20px;
+  padding-left: 20px;
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  color: yellowgreen;
 }
