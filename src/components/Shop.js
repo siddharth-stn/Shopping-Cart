@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import RyzenPic from "./static/ryzenPic.png";
 
 function Shop() {
+  const [cartItemsList, setCartItems] = useState([]);
   return (
     <div
       className="appDiv"
@@ -13,6 +14,7 @@ function Shop() {
         backgroundPosition: "center",
       }}
     >
+      {/* className = "appDiv" End */}
       <div className="shopWrapDiv">
         <div className="sideBarDiv">
           <div>All Products</div>
@@ -25,28 +27,37 @@ function Shop() {
           </div>
         </div>
         <div className="shopMainDiv">
-          <div className="prodDiv" id="prod1">
-            <img className="imageClass" src={RyzenPic}/>
-            <p className="productInfoPara">AMD Ryzen 5 5600X</p>
-            <p className="productPrice">$299.00</p>
-          </div>
-          <div className="prodDiv" id="prod2">
-            <img className="imageClass" src={RyzenPic} />
-            <p className="productInfoPara">AMD Ryzen 7 5800X</p>
-            <p className="productPrice">$449.00</p>
-          </div>
-          <div className="prodDiv" id="prod3">
-            <img className="imageClass" src={RyzenPic} />
-            <p className="productInfoPara">AMD Ryzen 9 5900X</p>
-            <p className="productPrice">$549.00</p>
-          </div>
-          <div className="prodDiv" id="prod4">
-            <img className="imageClass" src={RyzenPic} />
-            <p className="productInfoPara">AMD Ryzen 9 5950X</p>
-            <p className="productPrice">$799.00</p>
-          </div>
+          <a href="#prod1">
+            <div className="prodDiv" id="prod1">
+              <img className="imageClass" src={RyzenPic} />
+              <p className="productInfoPara">AMD Ryzen 5 5600X</p>
+              <p className="productPrice">$299.00</p>
+            </div>
+          </a>
+          <a href="#prod2">
+            <div className="prodDiv" id="prod2">
+              <img className="imageClass" src={RyzenPic} />
+              <p className="productInfoPara">AMD Ryzen 7 5800X</p>
+              <p className="productPrice">$449.00</p>
+            </div>
+          </a>
+          <a href="#prod3">
+            <div className="prodDiv" id="prod3">
+              <img className="imageClass" src={RyzenPic} />
+              <p className="productInfoPara">AMD Ryzen 9 5900X</p>
+              <p className="productPrice">$549.00</p>
+            </div>
+          </a>
+          <a href="#prod4">
+            <div className="prodDiv" id="prod4">
+              <img className="imageClass" src={RyzenPic} />
+              <p className="productInfoPara">AMD Ryzen 9 5950X</p>
+              <p className="productPrice">$799.00</p>
+            </div>
+          </a>
         </div>
-        </div> {/* className = "shopWrapDiv"  */}
+      </div>
+      {/* className = "shopWrapDiv"  */}
     </div> //className = "appDiv"
   );
 }
