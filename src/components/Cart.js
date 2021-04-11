@@ -1,5 +1,6 @@
 import React from "react";
-import Image from "./static/ryzenPic.png";
+import Image from "./static/ryzenPic.png"
+
 function Cart() {
   return (
     <div className="cartWrapperDiv">
@@ -8,7 +9,7 @@ function Cart() {
         <p>Your Shopping Cart</p>
       </div>
       <div className="addedProd">
-        <img className="addedProdImg" src={Image} />
+        <img className="addedProdImg" src={Image}  alt="product for purchase"/>
         <div className="priceDetail">
           <p className="nameOfProd">Ryzen 4500 X</p>
           <div className="quanDiv">
@@ -19,10 +20,7 @@ function Cart() {
         </div>
       </div>
       <div className="subTotal">
-        <span>Subtotal: </span>
-        <p>
-          $<span></span>
-        </p>
+          <span>Subtotal: </span><p>$<span></span></p>
       </div>
       <button className="checkOut">CHECKOUT</button>
     </div>
