@@ -4,39 +4,6 @@ import RyzenPic from "./static/ryzenPic.png";
 function Element(props) {
   // function to create the cart element and inside this function is the function to create the cartitems element also
   let itemsArray = props.itemsArray;
-  
-  let cartDivArray = document.getElementsByClassName("shopWrapDiv")
-//
-{/* Start Working Here */}
-  
-  // useEffect(() => {
-  //   let cartWrapperDiv = cartDivArray[0].nextElementSibling;
-  //   console.log(cartWrapperDiv);
-  // });
-  
-  // const [htmlCartProductsCollection] = useState(
-  //   document.getElementsByClassName("addedProd")
-  // );
-
-  // Array.from(htmlCartProductsCollection).forEach((element) => {
-  //   element.addEventListener("click", (e) => {
-  //     if (e.target.className === "addMoreProd") {
-  //       let inputBox = Array.from(
-  //         e.target.parentNode.getElementsByTagName("input")
-  //       )[0];
-  //       if (Number(inputBox.value) + 1 <= 10) {
-  //         inputBox.value = Number(inputBox.value) + 1;
-  //       }
-  //     } else if (e.target.className === "reduceProd") {
-  //       let inputBox = Array.from(
-  //         e.target.parentNode.getElementsByTagName("input")
-  //       )[0];
-  //       if (Number(inputBox.value) - 1 >= 1) {
-  //         inputBox.value = Number(inputBox.value) - 1;
-  //       }
-  //     }
-  //   });
-  // });
 
   function handleInputOnChange(e) {
     if (e.target.value > 10) {
@@ -78,15 +45,11 @@ function Element(props) {
     );
   } // function CreateItem Ends here //
 
-  let totalPrice = 0;
+  // let totalPrice = 0;
   let DisplayArray = [];
   itemsArray.forEach((item, index) => {
     DisplayArray.push(CreatedItem(item, index));
   }); // final array to be displayed as an element is created here
-
-  itemsArray.forEach((item) => {
-    totalPrice += Number(item.ratePerPiece.innerHTML.slice(1));
-  });
 
   return (
     <div className="cartWrapperDiv">
@@ -94,12 +57,12 @@ function Element(props) {
       <div className="nameOfSect">
         <p>Your Shopping Cart</p>
       </div>
-      {DisplayArray}{" "}
-      {/* This DisplayArray is created by calling the functino createdItems */}
+      {DisplayArray}
+      {/* This DisplayArray is created by calling the function createdItems with the push method */}
       <div className="subTotal">
         <span>Subtotal: </span>
         <p>
-          $<span> {totalPrice}</span>
+          $<span> </span>
         </p>
       </div>
       <button className="checkOut">CHECKOUT</button>
@@ -148,6 +111,44 @@ function Shop() {
       return <Element itemsArray={cartItemsList} />; //Element is JSX element that renders/appends the Cart Components to the Shop Page
     }
   };
+
+  useEffect(() => {
+    let cartWrapperDiv = document.querySelector(".cartWrapperDiv");
+    if (cartWrapperDiv) {
+      cartWrapperDiv.addEventListener("click", (event) => {
+        if (event.target.className === "addMoreProd") {
+          event.target.previousElementSibling.value++;
+        } else if (event.target.className === "reduceProd") {
+          --event.target.nextElementSibling.value;
+        }
+      });
+    };
+  });
+    
+
+
+  useEffect(() => {
+    let chosenProductsArray = Array.from(
+      document.getElementsByClassName("addedProd")
+    );
+    if (chosenProductsArray.length > 0) {
+      let price = [];
+      chosenProductsArray.forEach((item, index) => {
+        let itemRate = Number(
+          item.children[2].children[0].children[0].innerHTML.slice(1)
+        );
+        let quantity = Number(item.getElementsByClassName("countBox")[0].value);
+        price[index] = itemRate * quantity;
+      });
+
+      let totalCost = 0;
+      price.forEach((item) => {
+        totalCost += item;
+      });
+      let subTotalDiv = document.getElementsByClassName("subTotal")[0];
+      subTotalDiv.innerHTML = `Subtotal: $ ${totalCost}`;
+    }
+  });
 
   return (
     <div
