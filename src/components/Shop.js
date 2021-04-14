@@ -47,6 +47,7 @@ function Element(props) {
 
   // let totalPrice = 0;
   let DisplayArray = [];
+
   itemsArray.forEach((item, index) => {
     DisplayArray.push(CreatedItem(item, index));
   }); // final array to be displayed as an element is created here
@@ -72,6 +73,18 @@ function Element(props) {
 
 //XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX//
 
+/* Adding event Listeners to add and remove button of the cart in the global scope 
+to make sure event listeners must not have multiple registers on component re renders*/
+
+window.addEventListener("click", (event) => {
+  if (event.target.className === "addMoreProd") {
+    event.target.previousElementSibling.value++;
+  } else if (event.target.className === "reduceProd") {
+    event.target.nextElementSibling.value--;
+  }
+});
+
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX//
 // Main Function of the Shop Component ------>>
 function Shop() {
   const [cartItemsList, setCartItems] = useState([]);
@@ -104,28 +117,12 @@ function Shop() {
       }
     }
   }
-
   const Cart = () => {
     // function called to make the cart
     if (cartItemsList.length !== 0) {
       return <Element itemsArray={cartItemsList} />; //Element is JSX element that renders/appends the Cart Components to the Shop Page
     }
   };
-
-  useEffect(() => {
-    let cartWrapperDiv = document.querySelector(".cartWrapperDiv");
-    if (cartWrapperDiv) {
-      cartWrapperDiv.addEventListener("click", (event) => {
-        if (event.target.className === "addMoreProd") {
-          event.target.previousElementSibling.value++;
-        } else if (event.target.className === "reduceProd") {
-          --event.target.nextElementSibling.value;
-        }
-      });
-    };
-  });
-    
-
 
   useEffect(() => {
     let chosenProductsArray = Array.from(
@@ -148,7 +145,7 @@ function Shop() {
       let subTotalDiv = document.getElementsByClassName("subTotal")[0];
       subTotalDiv.innerHTML = `Subtotal: $ ${totalCost}`;
     }
-  });
+  }, [cartItemsList]);
 
   return (
     <div
