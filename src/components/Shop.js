@@ -4,12 +4,23 @@ import RyzenPic from "./static/ryzenPic.png";
 function Element(props) {
   // function to create the cart element and inside this function is the function to create the cartitems element also
   let itemsArray = props.itemsArray;
+  let setInputBoxValue = props.setQuantity;
 
   function handleInputOnChange(e) {
+    setInputBoxValue(e.target.value);
     if (e.target.value > 10) {
       e.target.value = 10;
     } else if (e.target.value < 1) {
       e.target.value = 1;
+    }
+  }
+
+  function handleClick (e) {
+    if (e.target.className === "addMoreProd") {
+      setInputBoxValue(e.target.previousElementSibling.value);
+    } else if (e.target.className === "reduceProd") {
+      console.log("add btn clicked " + e.target.className)
+      setInputBoxValue(e.target.nextElementSibling.value);
     }
   }
 
@@ -29,7 +40,7 @@ function Element(props) {
             <span className="rate">{item.ratePerPiece.innerHTML}</span>)
           </p>
           <div className="quanDiv">
-            <button className="reduceProd">-</button>
+            <button className="reduceProd" onClick={handleClick}>-</button>
             <input
               className="countBox"
               type="number"
@@ -38,7 +49,7 @@ function Element(props) {
               defaultValue="1"
               onChange={handleInputOnChange}
             />
-            <button className="addMoreProd">+</button>
+            <button className="addMoreProd" onClick={handleClick}>+</button>
           </div>
         </div>
       </div>
@@ -88,6 +99,7 @@ window.addEventListener("click", (event) => {
 // Main Function of the Shop Component ------>>
 function Shop() {
   const [cartItemsList, setCartItems] = useState([]);
+  const [inputBoxValue, setInputBoxValue] = useState(false);
 
   function handleClick(e) {
     e.preventDefault();
@@ -120,11 +132,12 @@ function Shop() {
   const Cart = () => {
     // function called to make the cart
     if (cartItemsList.length !== 0) {
-      return <Element itemsArray={cartItemsList} />; //Element is JSX element that renders/appends the Cart Components to the Shop Page
+      return <Element itemsArray={cartItemsList} setQuantity={setInputBoxValue}/>; //Element is JSX element that renders/appends the Cart Components to the Shop Page
     }
   };
 
   useEffect(() => {
+    setInputBoxValue(false)
     let chosenProductsArray = Array.from(
       document.getElementsByClassName("addedProd")
     );
@@ -145,7 +158,7 @@ function Shop() {
       let subTotalDiv = document.getElementsByClassName("subTotal")[0];
       subTotalDiv.innerHTML = `Subtotal: $ ${totalCost}`;
     }
-  }, [cartItemsList]);
+  }, [cartItemsList, inputBoxValue]);
 
   return (
     <div
