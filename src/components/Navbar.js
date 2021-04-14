@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import shoppingIcon from "./static/shopping-bag.png";
 
 function Navbar() {
   return (
